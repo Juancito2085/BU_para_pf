@@ -7,8 +7,7 @@ import matplotlib.pyplot as plt
 import pickle
 import datetime
 import calendar
-import locale
-locale.setlocale(locale.LC_TIME, 'es_ES')
+
 
 df_full = pd.read_parquet(r'Datos\ML_1.parquet')
 df_categorias = pd.read_parquet(r'Datos\categorias_numeros.parquet')

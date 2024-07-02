@@ -56,7 +56,7 @@ st.write(ciudades_filtradas[['latitud','longitud']].iloc[:5])
 fig1=plt.figure(figsize=(12, 8))
 for ciudad in ciudades_filtradas['city'].unique():
     ciudad_df = ciudades_filtradas[ciudades_filtradas['city'] == ciudad]
-    plt.plot(ciudad_df['fecha'].dt.month.apply(lambda x: calendar.month_name[x].capitalize()), ciudad_df['predicciones'], label=ciudad)
+    plt.plot(ciudad_df['fecha'].dt.month, ciudad_df['predicciones'], label=ciudad)
 plt.xlabel('Fecha')
 plt.ylabel('Predicciones')
 plt.title(f'Predicciones por ciudad de la categoría {categoria_seleccionada}')

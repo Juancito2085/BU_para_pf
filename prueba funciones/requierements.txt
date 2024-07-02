@@ -1,0 +1,7 @@
+gcsfs
+fsspec
+pandas
+numpy
+google-cloud-storage
+google-cloud-bigquery
+google-cloud-functions

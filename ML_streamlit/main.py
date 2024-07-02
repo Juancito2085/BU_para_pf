@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import pickle
 import datetime
 import calendar
+import torch
+
 
 
 df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
@@ -36,9 +38,13 @@ def entrada_seleccionada(modelo):
 categoria_seleccionada=entrada_seleccionada(modelo_seleccionado)
 
 #Abrimos el modelo
+@st.cache(allow_output_mutation=True)
+def abrir_modelo():
+    with bz2.BZ2File (r'ML_streamlit/Datos/Segementacion_modelo_bz2.pkl.bz2', 'rb') as f:
+        clf = joblib.load(f)
+    return clf
 
-with bz2.BZ2File (r'ML_streamlit/Datos/Segementacion_modelo_bz2.pkl.bz2', 'rb') as f:
-    clf = joblib.load(f)
+modelo=abrir_modelo()
 
 def predict_2(categoria):
     img = plot_predictions_for_categories(categoria, df_full, df_ciudades, df_full_2, df_categorias, clf)

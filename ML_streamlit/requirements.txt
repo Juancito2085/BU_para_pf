@@ -8,3 +8,4 @@ textblob
 requests
 pickle-mixin 
 pyarrow
+torch

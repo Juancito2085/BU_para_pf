@@ -2,12 +2,8 @@ streamlit
 joblib
 pandas
 matplotlib
-pandas
 numpy
 scikit-learn
 textblob
 requests
-io
-pickle-mixin
-bz2file
-funciones
+pickle-mixin 

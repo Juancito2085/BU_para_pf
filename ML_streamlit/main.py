@@ -9,7 +9,7 @@ import datetime
 import calendar
 
 
-df_full = pd.read_parquet('Datos/ML_1.parquet')
+df_full = pd.read_parquet(r'\Datos\ML_1.parquet')
 df_categorias = pd.read_parquet(r'Datos\categorias_numeros.parquet')
 df_ciudades = pd.read_parquet(r'Datos\ciudad_numeros.parquet')
 df_full_2 = pd.read_parquet(r'Datos\df_modelo.parquet')

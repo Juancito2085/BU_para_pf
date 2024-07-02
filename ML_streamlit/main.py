@@ -44,7 +44,7 @@ def abrir_modelo():
         clf = joblib.load(f)
     return clf
 
-modelo=abrir_modelo()
+clf=abrir_modelo()
 
 def predict_2(categoria):
     img = plot_predictions_for_categories(categoria, df_full, df_ciudades, df_full_2, df_categorias, clf)

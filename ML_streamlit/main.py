@@ -37,7 +37,7 @@ categoria_seleccionada=entrada_seleccionada(modelo_seleccionado)
 
 #Abrimos el modelo
 
-with bz2.BZ2File (r'ML_streamlit/Datos/Segementacion_modelo_float16.pkl', 'rb') as f:
+with bz2.BZ2File (r'ML_streamlit/Datos/Segementacion_modelo_bz2.pkl.bz2', 'rb') as f:
     clf = joblib.load(f)
 
 def predict_2(categoria):

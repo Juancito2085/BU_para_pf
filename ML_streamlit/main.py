@@ -1,5 +1,6 @@
 import streamlit as st
 import  bz2
+import joblib
 import pandas as pd
 from funciones import *
 import matplotlib.pyplot as plt

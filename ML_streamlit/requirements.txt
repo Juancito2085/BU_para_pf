@@ -5,3 +5,6 @@ matplotlib
 pandas
 numpy
 scikit-learn
+textblob
+requests
+io

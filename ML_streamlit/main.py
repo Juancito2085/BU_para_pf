@@ -37,16 +37,12 @@ categoria_seleccionada=entrada_seleccionada(modelo_seleccionado)
 
 #Abrimos el modelo
 
-##with bz2.BZ2File (r'ML_streamlit/Datos/Segementacion_modelo_bz2.pkl.bz2', 'rb') as f:
-##    clf = joblib.load(f)
+with bz2.BZ2File (r'ML_streamlit/Datos/Segementacion_modelo_bz2.pkl.bz2', 'rb') as f:
+    clf = joblib.load(f)
 
 def predict_2(categoria):
     img = plot_predictions_for_categories(categoria, df_full, df_ciudades, df_full_2, df_categorias, clf)
     return img
-
-'''def predict(city):
-    img = plot_predictions_for_city(df_categorias, df_ciudades, df_full_2, model, city)
-    return send_file(img, mimetype='image/png')'''
 
 
 ciudades_filtradas=predict_2(categoria_seleccionada)

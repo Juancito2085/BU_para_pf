@@ -7,4 +7,3 @@ scikit-learn
 textblob
 requests
 pickle-mixin 
-locale

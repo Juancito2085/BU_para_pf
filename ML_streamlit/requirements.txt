@@ -8,3 +8,6 @@ scikit-learn
 textblob
 requests
 io
+pickle-mixin
+bz2file
+funciones

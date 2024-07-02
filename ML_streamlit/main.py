@@ -10,9 +10,9 @@ import calendar
 
 
 df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
-df_categorias = pd.read_parquet(r'Datos\categorias_numeros.parquet')
-df_ciudades = pd.read_parquet(r'Datos\ciudad_numeros.parquet')
-df_full_2 = pd.read_parquet(r'Datos\df_modelo.parquet')
+df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
+df_ciudades = pd.read_parquet(r'ML_streamlit/Datos/ciudad_numeros.parquet')
+df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/f_modelo.parquet')
 st.title("Proyecto Google-YELP")
 
 modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Predicción de crecimiento", "Identificación de oportunidades"])
@@ -37,7 +37,7 @@ categoria_seleccionada=entrada_seleccionada(modelo_seleccionado)
 
 #Abrimos el modelo
 
-with bz2.BZ2File ('Datos\Segementacion_modelo_float16.pkl', 'rb') as f:
+with bz2.BZ2File ('ML_streamlit/Datos/Segementacion_modelo_float16.pkl', 'rb') as f:
     clf = joblib.load(f)
 
 def predict_2(categoria):

@@ -73,7 +73,7 @@ def predict_2(categoria,clf):
 
 ciudades_filtradas=predict_2(categoria_seleccionada,clf)
 
-#plot del primer modelo
+'''#plot del primer modelo
 fig1=plt.figure(figsize=(12, 8))
 for ciudad in ciudades_filtradas['city'].unique():
     ciudad_df = ciudades_filtradas[ciudades_filtradas['city'] == ciudad]
@@ -87,4 +87,4 @@ plt.xticks(rotation=45)
 plt.subplots_adjust(left=0.1, right=0.75, top=0.9, bottom=0.2) 
 plt.show()
 
-st.pyplot(fig1)
+st.pyplot(fig1)'''

@@ -164,7 +164,7 @@ def plot_predictions_for_city(ciudad, model, cantidad=1):
     latitud.append(df_full[df_full['city']==ciudad]['latitude'].values[0])
     longitud.append(df_full[df_full['city']==ciudad]['longitude'].values[0])
     resultado_lat_lon = pd.DataFrame({'ciudad':ciudad,'latitud': latitud, 'longitud': longitud})
-    plt.figure(figsize=(14, 10))
+    plt.figure(figsize=(12, 8))
     for categoria in categorias_filtradas['categorias'].unique():
         categoria_df = categorias_filtradas[categorias_filtradas['categorias'] == categoria]
         plt.plot(categoria_df['fecha'], categoria_df['predicciones'], label=categoria)

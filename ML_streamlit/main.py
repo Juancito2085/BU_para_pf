@@ -70,15 +70,15 @@ def entrada_seleccionada(modelo):
 
 entrada, cantidad=entrada_seleccionada(modelo_seleccionado)
 
-col1, col2, col3 = st.columns([1,8,1])
+col1 = st.columns([8])
 
 if modelo_seleccionado=="Predicción de crecimiento":
     img, mapa = plot_predictions_for_categories(entrada,clf)
-    with col2:
+    with col1:
         st.image(img, caption='Gráfico de Predicciones por Ciudad', use_column_width=True)
     folium_static(mapa)
 else:
     img, mapa = plot_predictions_for_city(entrada,clf,cantidad)
-    with col2:
+    with col1:
         st.image(img, caption='Gráfico de Predicciones por Categoría' ,use_column_width=True, width=1000)
     folium_static(mapa)

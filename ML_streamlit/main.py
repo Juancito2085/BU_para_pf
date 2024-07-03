@@ -2,7 +2,7 @@ import streamlit as st
 import  bz2
 import joblib
 import pandas as pd
-from funciones import *
+from funciones import plot_predictions_for_categories
 import matplotlib.pyplot as plt
 import pickle
 import datetime

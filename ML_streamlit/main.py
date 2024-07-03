@@ -54,7 +54,7 @@ modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Pre
 
 def entrada_seleccionada(modelo):
     if modelo=="Predicción de crecimiento":
-        categorias=df_full_2['categoria'].unique()
+        categorias=df_full_2['categories'].unique()
         categorias=sorted(categorias)
         categoria_seleccionada = st.sidebar.selectbox("Seleccione las categorías:", categorias)
         return categoria_seleccionada

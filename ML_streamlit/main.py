@@ -69,4 +69,4 @@ entrada=entrada_seleccionada(modelo_seleccionado)
 
 if modelo_seleccionado=="Predicción de crecimiento":
     img = plot_predictions_for_categories(['American'],clf)
-    st_folium(img)
+    st.pyplot(img)

@@ -46,7 +46,7 @@ bucket_name = 'modelo_ml_111'
 file_name = 'Segementacion_modelo_bz2.pkl.bz2'
 clf = abrir_modelo(bucket_name, file_name) 
 
-st.write(df_categorias.columns)
+st.write(df_categorias['category'].unique())
 
 modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Predicción de crecimiento", "Identificación de oportunidades"])
 

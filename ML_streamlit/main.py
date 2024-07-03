@@ -71,17 +71,13 @@ def entrada_seleccionada(modelo):
 entrada, cantidad=entrada_seleccionada(modelo_seleccionado)
 
 #Creamos las columnas
-col1, col_gap, col2 = st.columns([3,0.5, 2])
+
 
 if modelo_seleccionado=="Predicción de crecimiento":
     img, mapa = plot_predictions_for_categories(entrada,clf)
-    with col1:
-        st.image(img, caption='Gráfico de Predicciones por Ciudad', use_column_width=True)
-    with col2:
-        folium_static(mapa)
+    st.image(img, caption='Gráfico de Predicciones por Ciudad', use_column_width=True)
+    folium_static(mapa)
 else:
     img, mapa = plot_predictions_for_city(entrada,clf,cantidad)
-    with col1:
-        st.image(img, caption='Gráfico de Predicciones por Categoría' ,use_column_width=True)
-    with col2:
-        folium_static(mapa)
+    st.image(img, caption='Gráfico de Predicciones por Categoría' ,use_column_width=True)
+    folium_static(mapa)

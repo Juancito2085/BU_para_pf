@@ -8,10 +8,10 @@ import folium
 from itertools import combinations
 import math
 
-df_full = pd.read_parquet(r'D:\Trabajos\Proyecto Final\DataSet limpios\ML_1.parquet')
-df_categorias = pd.read_parquet(r'D:\Trabajos\Proyecto Final\DataSet limpios\categorias_numeros.parquet')
-df_ciudades = pd.read_parquet(r'D:\Trabajos\Proyecto Final\DataSet limpios\ciudad_numeros.parquet')
-df_full_2 = pd.read_parquet(r'D:\Trabajos\Proyecto Final\DataSet limpios\df_modelo.parquet')
+df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
+df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
+df_ciudades = pd.read_parquet(r'ML_streamlit/Datos/ciudad_numeros.parquet')
+df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/df_modelo.parquet')
 
 def sentiment_score(review:str) -> int:
   

@@ -74,5 +74,5 @@ if modelo_seleccionado=="Predicción de crecimiento":
     img = plot_predictions_for_categories(entrada,clf)
     st.pyplot(img)
 else:
-    img = plot_predictions_for_city(entrada,clf)
+    img = plot_predictions_for_city(entrada,clf,cantidad)
     st.pyplot(img)

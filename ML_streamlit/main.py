@@ -8,9 +8,13 @@ import pickle
 import datetime
 import calendar
 import torch
+import gcsfs
 
 
 
+
+bucket='modelo_ml_111'
+file='Segementacion_modelo_bz2.pkl.bz2'
 df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
 df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
 df_ciudades = pd.read_parquet(r'ML_streamlit/Datos/ciudad_numeros.parquet')
@@ -40,7 +44,7 @@ categoria_seleccionada=entrada_seleccionada(modelo_seleccionado)
 #Abrimos el modelo
 @st.cache(allow_output_mutation=True)
 def abrir_modelo():
-    with bz2.BZ2File (r'ML_streamlit/Datos/Segementacion_modelo_bz2.pkl.bz2', 'rb') as f:
+    with bz2.BZ2File (f"{bucket}/{file}") as f:
         clf = joblib.load(f)
     return clf
 
@@ -52,8 +56,7 @@ def predict_2(categoria):
 
 
 ciudades_filtradas=predict_2(categoria_seleccionada)
-st.write(ciudades_filtradas.columns)
-st.write(ciudades_filtradas[['latitud','longitud']].iloc[:5])
+
 #plot del primer modelo
 fig1=plt.figure(figsize=(12, 8))
 for ciudad in ciudades_filtradas['city'].unique():

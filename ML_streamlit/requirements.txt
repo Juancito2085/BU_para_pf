@@ -9,3 +9,4 @@ requests
 pickle-mixin 
 pyarrow
 torch
+gcsfs

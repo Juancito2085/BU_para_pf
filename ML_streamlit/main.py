@@ -64,8 +64,9 @@ def entrada_seleccionada(modelo):
         ciudades=df_ciudades['city'].unique()
         ciudades=sorted(ciudades)
         ciudad_seleccionada = st.sidebar.selectbox("Seleccione una ciudad:", ciudades)
+        cantidad=st.sidebar.slider("Seleccione la cantidad de categoris", 1, 5, 1)
         ciudad_seleccionada=ciudad_seleccionada
-        return ciudad_seleccionada
+        return ciudad_seleccionada, cantidad
 
 entrada=entrada_seleccionada(modelo_seleccionado)
 

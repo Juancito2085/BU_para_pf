@@ -24,7 +24,7 @@ st.title("Proyecto Google-YELP")
 
 #Abrimos el modelo
 @st.cache(allow_output_mutation=True)
-def abrir_modelo():
+def abrir_modelo(bucket_name, file_name):
     url="https://storage.googleapis.com/modelo_ml_111/Segementacion_modelo_bz2.pkl.bz2"
 
     response=requests.get(url)

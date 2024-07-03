@@ -44,9 +44,9 @@ def abrir_modelo(bucket_name, file_name):
 # Ejemplo de uso
 bucket_name = 'modelo_ml_111'
 file_name = 'Segementacion_modelo_bz2.pkl.bz2'
-modelo = abrir_modelo(bucket_name, file_name)    
+clf = abrir_modelo(bucket_name, file_name)    
 
-clf=abrir_modelo()
+
 
 modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Predicción de crecimiento", "Identificación de oportunidades"])
 

@@ -66,12 +66,11 @@ def entrada_seleccionada(modelo):
 
 categoria_seleccionada=entrada_seleccionada(modelo_seleccionado)
 
-def predict_2(categoria,clf):
-    img = plot_predictions_for_categories(categoria,clf)
-    return img
+img = plot_predictions_for_categories(categoria_seleccionada,clf)
+st.image(img)
 
 
-ciudades_filtradas=predict_2(categoria_seleccionada,clf)
+
 
 '''#plot del primer modelo
 fig1=plt.figure(figsize=(12, 8))

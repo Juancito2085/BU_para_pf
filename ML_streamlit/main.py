@@ -44,9 +44,9 @@ def abrir_modelo(bucket_name, file_name):
 # Ejemplo de uso
 bucket_name = 'modelo_ml_111'
 file_name = 'Segementacion_modelo_bz2.pkl.bz2'
-clf = abrir_modelo(bucket_name, file_name)    
+clf = abrir_modelo(bucket_name, file_name) 
 
-
+st.write(df_full_2.columns)
 
 modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Predicción de crecimiento", "Identificación de oportunidades"])
 
@@ -54,7 +54,8 @@ modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Pre
 
 def entrada_seleccionada(modelo):
     if modelo=="Predicción de crecimiento":
-        categorias=df_full_2['categories'].unique()
+        categorias=['Fast Food', 'Italian', 'East Asian', 'Mexican', 'American','Chinese', 'Veggie Vegan', 'Caribbean',
+                     'Latin American', 'Middle East', 'Indian', 'Spanish', 'French', 'Greek', 'Jew','African']
         categorias=sorted(categorias)
         categoria_seleccionada = st.sidebar.selectbox("Seleccione las categorías:", categorias)
         return categoria_seleccionada

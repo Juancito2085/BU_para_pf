@@ -10,3 +10,4 @@ pickle-mixin
 pyarrow
 torch
 gcsfs
+folium

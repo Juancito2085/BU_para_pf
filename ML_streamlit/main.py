@@ -11,6 +11,7 @@ import torch
 import gcsfs
 from io import BytesIO
 import requests
+from streamlit_folium import st_folium
 
 
 
@@ -68,4 +69,4 @@ entrada=entrada_seleccionada(modelo_seleccionado)
 
 if modelo_seleccionado=="Predicción de crecimiento":
     img = plot_predictions_for_categories(['American'],clf)
-    st.image(img)
+    st_folium(img)

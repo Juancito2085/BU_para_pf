@@ -57,7 +57,8 @@ def entrada_seleccionada(modelo):
         categorias=df_categorias['category'].unique()
         categorias=sorted(categorias)
         categoria_seleccionada = st.sidebar.selectbox("Seleccione las categorías:", categorias)
-        return list(categoria_seleccionada)
+        categoria_seleccionada=[categoria_seleccionada]
+        return categoria_seleccionada
     else:
         ciudades=['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego',
                  'Dallas', 'San Jose', 'Austin', 'Jacksonville', 'Fort Worth', 'Columbus', 'Charlotte', 'San Francisco']

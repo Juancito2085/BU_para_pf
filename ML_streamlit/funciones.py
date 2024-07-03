@@ -92,7 +92,7 @@ def plot_predictions_for_categories(categorias1, model):
     resultados_df['fecha'] = pd.to_datetime(resultados_df['fecha'])
     scaler = MinMaxScaler()
     resultados_df['predicciones'] = scaler.fit_transform(resultados_df[['predicciones']])
-    condicion_prediccion = resultados_df['predicciones'].mean() + 1.8 * resultados_df['predicciones'].std()
+    condicion_prediccion = resultados_df['predicciones'].mean() + 1.5 * resultados_df['predicciones'].std()
     ciudades_filtradas = resultados_df.groupby('city').filter(lambda x: x['predicciones'].mean() > condicion_prediccion)
     ciudades_localizadas = list(ciudades_filtradas['city'].unique())
     latitud=[]

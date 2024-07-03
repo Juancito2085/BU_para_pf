@@ -68,5 +68,5 @@ def entrada_seleccionada(modelo):
 entrada=entrada_seleccionada(modelo_seleccionado)
 
 if modelo_seleccionado=="Predicción de crecimiento":
-    img = plot_predictions_for_categories(['American'],clf)
+    img = plot_predictions_for_categories(entrada,clf)
     st.pyplot(img)

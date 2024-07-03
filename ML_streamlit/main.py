@@ -65,8 +65,8 @@ def entrada_seleccionada(modelo):
         return ciudad_seleccionada
 
 entrada=entrada_seleccionada(modelo_seleccionado)
-
-st.write(type(entrada))
+a=['a','b','c]
+st.write(type(a))
 
 '''if modelo_seleccionado=="Predicción de crecimiento":
     img = plot_predictions_for_categories(entrada,clf)'''

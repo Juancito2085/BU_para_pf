@@ -71,7 +71,7 @@ def entrada_seleccionada(modelo):
 entrada, cantidad=entrada_seleccionada(modelo_seleccionado)
 
 #Creamos las columnas
-col1, col2 = st.columns([1, 1])
+col1, col_gap, col2 = st.columns([1,0.1, 1])
 
 if modelo_seleccionado=="Predicción de crecimiento":
     img, mapa = plot_predictions_for_categories(entrada,clf)

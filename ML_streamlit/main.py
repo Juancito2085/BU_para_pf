@@ -3,6 +3,7 @@ import  bz2
 import joblib
 import pandas as pd
 from funciones import plot_predictions_for_categories
+from funciones import plot_predictions_for_city
 import matplotlib.pyplot as plt
 import pickle
 import datetime
@@ -60,14 +61,17 @@ def entrada_seleccionada(modelo):
         categoria_seleccionada=[categoria_seleccionada]
         return categoria_seleccionada
     else:
-        ciudades=['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego',
-                 'Dallas', 'San Jose', 'Austin', 'Jacksonville', 'Fort Worth', 'Columbus', 'Charlotte', 'San Francisco']
+        ciudades=df_ciudades['city'].unique()
         ciudades=sorted(ciudades)
         ciudad_seleccionada = st.sidebar.selectbox("Seleccione una ciudad:", ciudades)
+        ciudad_seleccionada=ciudad_seleccionada
         return ciudad_seleccionada
 
 entrada=entrada_seleccionada(modelo_seleccionado)
 
 if modelo_seleccionado=="Predicción de crecimiento":
     img = plot_predictions_for_categories(entrada,clf)
+    st.pyplot(img)
+else:
+    img = plot_predictions_for_city(entrada,clf)
     st.pyplot(img)

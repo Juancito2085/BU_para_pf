@@ -92,7 +92,7 @@ def plot_predictions_for_categories(categorias1, model):
     resultados_df['fecha'] = pd.to_datetime(resultados_df['fecha'])
     scaler = MinMaxScaler()
     resultados_df['predicciones'] = scaler.fit_transform(resultados_df[['predicciones']])
-    condicion_prediccion = resultados_df['predicciones'].mean() + 1.5 * resultados_df['predicciones'].std()
+    condicion_prediccion = resultados_df['predicciones'].mean() + 1.6 * resultados_df['predicciones'].std()
     ciudades_filtradas = resultados_df.groupby('city').filter(lambda x: x['predicciones'].mean() > condicion_prediccion)
     ciudades_localizadas = list(ciudades_filtradas['city'].unique())
     latitud=[]
@@ -172,7 +172,7 @@ def plot_predictions_for_city(ciudad, model, cantidad=1):
     plt.xticks(rotation=45)
     plt.subplots_adjust(left=0.1, right=0.75, top=0.9, bottom=0.2)
     plt.show()
-    map_center = [resultado_lat_lon['latitud'].mean(), resultado_lat_lon['longitud'].mean()]
+    '''map_center = [resultado_lat_lon['latitud'].mean(), resultado_lat_lon['longitud'].mean()]
     mapa = folium.Map(location=map_center, zoom_start=12)
     for _, row in resultado_lat_lon.iterrows():
         folium.Marker(
@@ -180,4 +180,4 @@ def plot_predictions_for_city(ciudad, model, cantidad=1):
             popup=row['ciudad']
         ).add_to(mapa)
     mapa.save('mapa_ciudades.html')
-    return mapa
+    return mapa'''

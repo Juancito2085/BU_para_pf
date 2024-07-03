@@ -59,7 +59,7 @@ def entrada_seleccionada(modelo):
         categorias=sorted(categorias)
         categoria_seleccionada = st.sidebar.selectbox("Seleccione las categorías:", categorias)
         categoria_seleccionada=[categoria_seleccionada]
-        return categoria_seleccionada
+        return categoria_seleccionada, 0
     else:
         ciudades=df_ciudades['city'].unique()
         ciudades=sorted(ciudades)
@@ -68,7 +68,7 @@ def entrada_seleccionada(modelo):
         ciudad_seleccionada=ciudad_seleccionada
         return ciudad_seleccionada, cantidad
 
-entrada=entrada_seleccionada(modelo_seleccionado)
+entrada, cantidad=entrada_seleccionada(modelo_seleccionado)
 
 if modelo_seleccionado=="Predicción de crecimiento":
     img = plot_predictions_for_categories(entrada,clf)

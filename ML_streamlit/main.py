@@ -12,7 +12,7 @@ import torch
 import gcsfs
 from io import BytesIO
 import requests
-from streamlit_folium import st_folium
+from streamlit_folium import folium_static
 
 
 
@@ -71,8 +71,9 @@ def entrada_seleccionada(modelo):
 entrada, cantidad=entrada_seleccionada(modelo_seleccionado)
 
 if modelo_seleccionado=="Predicción de crecimiento":
-    img = plot_predictions_for_categories(entrada,clf)
-    st.pyplot(img)
+    img, mapa = plot_predictions_for_categories(entrada,clf)
+    st.image(img, caption='Gráfico de Predicciones por Ciudad', use_column_width=True)
+    folium_static(mapa)
 else:
     img = plot_predictions_for_city(entrada,clf,cantidad)
     st.pyplot(img)

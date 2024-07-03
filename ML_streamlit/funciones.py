@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import folium
 from itertools import combinations
 import math
+import io
 
 df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
 df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
@@ -113,8 +114,11 @@ def plot_predictions_for_categories(categorias1, model):
     plt.grid(True)
     plt.xticks(rotation=45)
     plt.subplots_adjust(left=0.1, right=0.75, top=0.9, bottom=0.2)
-    plt.show()
-    '''map_center = [resultado_lat_lon['latitud'].mean(), resultado_lat_lon['longitud'].mean()]
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    plt.close()
+    map_center = [resultado_lat_lon['latitud'].mean(), resultado_lat_lon['longitud'].mean()]
     mapa = folium.Map(location=map_center, zoom_start=12)
     for _, row in resultado_lat_lon.iterrows():
         folium.Marker(
@@ -122,7 +126,7 @@ def plot_predictions_for_categories(categorias1, model):
             popup=row['ciudad']
         ).add_to(mapa)
     mapa.save('mapa_ciudades.html')
-    return mapa'''
+    return img, mapa
 
 def plot_predictions_for_city(ciudad, model, cantidad=1):
     predicciones = []

@@ -65,7 +65,7 @@ def entrada_seleccionada(modelo):
         return ciudad_seleccionada
 
 entrada=entrada_seleccionada(modelo_seleccionado)
-a=['a','b','c]
+a=['a','b','c']
 st.write(type(a))
 
 '''if modelo_seleccionado=="Predicción de crecimiento":

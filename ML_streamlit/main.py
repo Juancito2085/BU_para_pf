@@ -30,11 +30,13 @@ def abrir_modelo(bucket_name, file_name):
     response=requests.get(url)
     # Asegúrate de que la solicitud fue exitosa
     if response.status_code == 200:
-        # Descomprime el contenido bz2
-        decompressed_content = bz2.decompress(response.content)
+        # Crea un stream de bytes a partir del contenido comprimido
+        compressed_content = BytesIO(response.content)
         
-        # Carga el modelo desde el contenido descomprimido
-        clf = joblib.load(BytesIO(decompressed_content))
+        # Descomprime y carga el modelo directamente desde el stream de bytes
+        with bz2.open(compressed_content, 'rb') as f:
+            clf = joblib.load(f)
+        
         return clf
     else:
         raise Exception(f"Error al acceder al archivo: {response.status_code}")
@@ -43,9 +45,6 @@ def abrir_modelo(bucket_name, file_name):
 bucket_name = 'modelo_ml_111'
 file_name = 'Segementacion_modelo_bz2.pkl.bz2'
 modelo = abrir_modelo(bucket_name, file_name)    
-'''    with bz2.BZ2File (f"{bucket}/{file}") as f:
-        clf = joblib.load(f)
-    return clf'''
 
 clf=abrir_modelo()
 

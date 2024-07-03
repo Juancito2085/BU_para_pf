@@ -46,7 +46,6 @@ bucket_name = 'modelo_ml_111'
 file_name = 'Segementacion_modelo_bz2.pkl.bz2'
 clf = abrir_modelo(bucket_name, file_name) 
 
-st.write(df_categorias['category'].unique())
 
 modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Predicción de crecimiento", "Identificación de oportunidades"])
 
@@ -54,8 +53,7 @@ modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Pre
 
 def entrada_seleccionada(modelo):
     if modelo=="Predicción de crecimiento":
-        categorias=['Fast Food', 'Italian', 'East Asian', 'Mexican', 'American','Chinese', 'Veggie Vegan', 'Caribbean',
-                     'Latin American', 'Middle East', 'Indian', 'Spanish', 'French', 'Greek', 'Jew','African']
+        categorias=df_categorias['category'].unique()
         categorias=sorted(categorias)
         categoria_seleccionada = st.sidebar.selectbox("Seleccione las categorías:", categorias)
         return categoria_seleccionada

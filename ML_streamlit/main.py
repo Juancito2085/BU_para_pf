@@ -65,7 +65,7 @@ def entrada_seleccionada(modelo):
         return ciudad_seleccionada
 
 entrada=entrada_seleccionada(modelo_seleccionado)
-st.write(entrada)
+st.write(type(entrada))
 
 
 '''if modelo_seleccionado=="Predicción de crecimiento":

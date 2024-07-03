@@ -54,8 +54,7 @@ modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Pre
 
 def entrada_seleccionada(modelo):
     if modelo=="Predicción de crecimiento":
-        categorias=['Fast Food', 'Italian', 'East Asian', 'Mexican', 'American','Chinese', 'Veggie Vegan', 'Caribbean',
-                     'Latin American', 'Middle East', 'Indian', 'Spanish', 'French', 'Greek', 'Jew','African']
+        categorias=df_full_2['categoria'].unique()
         categorias=sorted(categorias)
         categoria_seleccionada = st.sidebar.selectbox("Seleccione las categorías:", categorias)
         return categoria_seleccionada

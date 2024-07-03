@@ -11,3 +11,4 @@ pyarrow
 torch
 gcsfs
 folium
+streamlit_folium

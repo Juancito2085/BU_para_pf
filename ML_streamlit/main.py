@@ -56,7 +56,7 @@ def entrada_seleccionada(modelo):
         categorias=df_categorias['category'].unique()
         categorias=sorted(categorias)
         categoria_seleccionada = st.sidebar.selectbox("Seleccione las categorías:", categorias)
-        return categoria_seleccionada
+        return list(categoria_seleccionada)
     else:
         ciudades=['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego',
                  'Dallas', 'San Jose', 'Austin', 'Jacksonville', 'Fort Worth', 'Columbus', 'Charlotte', 'San Francisco']
@@ -65,8 +65,8 @@ def entrada_seleccionada(modelo):
         return ciudad_seleccionada
 
 entrada=entrada_seleccionada(modelo_seleccionado)
-st.write(type(entrada))
 
+st.write(type(entrada))
 
 '''if modelo_seleccionado=="Predicción de crecimiento":
     img = plot_predictions_for_categories(entrada,clf)'''

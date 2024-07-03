@@ -4,7 +4,14 @@ import re
 from math import radians, sin, cos, sqrt, atan2
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
-import io
+import folium
+from itertools import combinations
+import math
+
+df_full = pd.read_parquet(r'D:\Trabajos\Proyecto Final\DataSet limpios\ML_1.parquet')
+df_categorias = pd.read_parquet(r'D:\Trabajos\Proyecto Final\DataSet limpios\categorias_numeros.parquet')
+df_ciudades = pd.read_parquet(r'D:\Trabajos\Proyecto Final\DataSet limpios\ciudad_numeros.parquet')
+df_full_2 = pd.read_parquet(r'D:\Trabajos\Proyecto Final\DataSet limpios\df_modelo.parquet')
 
 def sentiment_score(review:str) -> int:
   
@@ -51,20 +58,18 @@ def lat_lon(ciudad, df):
         return None, None
     
 def categorias_funcion(categoria,df):
-    lista = []
+    lista_numeros = []
     for i in categoria:
-        for j, row in df.iterrows():
-            if len(lista) >= 5:
-                break
-            if row.iloc[1] == i:
-                lista.append(j)
-            else:
-                lista.append(-1)
-        if len(lista) >= 5:
-            break
-    return lista[:5] 
+        if i in df['category'].values:
+            numero = df[df['category'] == i]['index'].values[0]
+            lista_numeros.append(numero)
+        else:
+            lista_numeros.append(-1)
+    while len(lista_numeros) < 5:
+        lista_numeros.append(-1)
+    return lista_numeros
 
-def plot_predictions_for_categories(categorias1, df_full, df_ciudades, df_full_2, df_categorias, model):
+def plot_predictions_for_categories(categorias1, model):
     ciudades_unicas = set(df_full['city'].values)
     predicciones = []
     fechas = []
@@ -83,15 +88,21 @@ def plot_predictions_for_categories(categorias1, df_full, df_ciudades, df_full_2
                 predicciones.append(prediccion)
                 fechas.append(f"{anio}-{mes:02d}")
                 ciudades.append(ciudad)
-    resultados_df = pd.DataFrame({'city': ciudades, 'fecha': fechas, 'predicciones': predicciones,'latitud':lat,'longitud':lon})
+    resultados_df = pd.DataFrame({'city': ciudades, 'fecha': fechas, 'predicciones': predicciones})
     resultados_df['fecha'] = pd.to_datetime(resultados_df['fecha'])
     scaler = MinMaxScaler()
     resultados_df['predicciones'] = scaler.fit_transform(resultados_df[['predicciones']])
     condicion_prediccion = resultados_df['predicciones'].mean() + 1.8 * resultados_df['predicciones'].std()
     ciudades_filtradas = resultados_df.groupby('city').filter(lambda x: x['predicciones'].mean() > condicion_prediccion)
+    ciudades_localizadas = list(ciudades_filtradas['city'].unique())
+    latitud=[]
+    longitud=[]
+    for i in ciudades_localizadas:
+        latitud.append(df_full[df_full['city']==i]['latitude'].values[0])
+        longitud.append(df_full[df_full['city']==i]['longitude'].values[0])
+    resultado_lat_lon = pd.DataFrame({'ciudad':ciudades_localizadas,'latitud': latitud, 'longitud': longitud})
     categoria_string = ' - '.join(categorias1)
-    return ciudades_filtradas
-    '''plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(12, 8))
     for ciudad in ciudades_filtradas['city'].unique():
         ciudad_df = ciudades_filtradas[ciudades_filtradas['city'] == ciudad]
         plt.plot(ciudad_df['fecha'], ciudad_df['predicciones'], label=ciudad)
@@ -102,34 +113,39 @@ def plot_predictions_for_categories(categorias1, df_full, df_ciudades, df_full_2
     plt.grid(True)
     plt.xticks(rotation=45)
     plt.subplots_adjust(left=0.1, right=0.75, top=0.9, bottom=0.2)
-    
-    plt.show()'''
-#coordenadas=lat_lon(lat, lon)
-def lat_long(latitud,longitud):
-    return (latitud,longitud)
+    plt.show()
+    map_center = [resultado_lat_lon['latitud'].mean(), resultado_lat_lon['longitud'].mean()]
+    mapa = folium.Map(location=map_center, zoom_start=12)
+    for _, row in resultado_lat_lon.iterrows():
+        folium.Marker(
+            location=[row['latitud'], row['longitud']],
+            popup=row['ciudad']
+        ).add_to(mapa)
+    mapa.save('mapa_ciudades.html')
+    return mapa
 
-
-def plot_predictions_for_city(df_categorias, df_ciudad, df_full_2, model, ciudad):
+def plot_predictions_for_city(ciudad, model, cantidad=1):
     predicciones = []
     fechas = []
     categorias_unicas = []
-    for categoria_1 in df_categorias['category']:
-        for categoria_2 in df_categorias['category']:
-            if categoria_1 != categoria_2:
-                categorias = [categoria_1, categoria_2]
-                ciudad_numero = ciudad_numero_funcion(ciudad, df_ciudad)
-                lat, lon = lat_lon(ciudad_numero, df_full_2)
-                categoria_numeros = categorias_funcion(categorias, df_categorias)
-                for anio in [2019]:
-                    for mes in range(1, 13):
-                        features = [ciudad_numero, lat, lon] + categoria_numeros + [anio, mes]
-                        columns = ['city', 'latitude', 'longitude', 'category_1', 'category_2', 'category_3', 
-                                   'category_4', 'category_5', 'year', 'month']
-                        features_df = pd.DataFrame([features], columns=columns)
-                        prediccion = model.predict(features_df)[0]
-                        predicciones.append(prediccion)
-                        fechas.append(f"{anio}-{mes:02d}")
-                        categorias_unicas.append(categorias)
+    categoria_combinations = list(combinations(df_categorias['category'], cantidad))
+    total=math.comb(len(df_categorias['category']),cantidad)
+    categoria_combinations = categoria_combinations[:total]
+    for i in categoria_combinations:
+        categorias = list(i)
+        ciudad_numero = ciudad_numero_funcion(ciudad, df_ciudades)
+        lat, lon = lat_lon(ciudad_numero, df_full_2)
+        categoria_numeros = categorias_funcion(categorias, df_categorias)
+        for anio in [2019]:
+            for mes in range(1, 13):
+                features = [ciudad_numero, lat, lon] + categoria_numeros + [anio, mes]
+                columns = ['city', 'latitude', 'longitude', 'category_1', 'category_2', 'category_3', 
+                            'category_4', 'category_5', 'year', 'month']
+                features_df = pd.DataFrame([features], columns=columns)
+                prediccion = model.predict(features_df)[0]
+                predicciones.append(prediccion)
+                fechas.append(f"{anio}-{mes:02d}")
+                categorias_unicas.append(categorias)                
             else:
                 continue
     resultados_df = pd.DataFrame({'categorias': categorias_unicas, 'fecha': fechas, 'predicciones': predicciones})
@@ -139,6 +155,11 @@ def plot_predictions_for_city(df_categorias, df_ciudad, df_full_2, model, ciudad
     condicion_prediccion_2 = resultados_df['predicciones'].mean() + 0.1 * resultados_df['predicciones'].std()
     resultados_df['categorias'] = resultados_df['categorias'].apply(lambda x: ' - '.join(x) if isinstance(x, list) else x)
     categorias_filtradas = resultados_df.groupby('categorias').filter(lambda x: x['predicciones'].mean() > condicion_prediccion_2)
+    latitud=[]
+    longitud=[]
+    latitud.append(df_full[df_full['city']==ciudad]['latitude'].values[0])
+    longitud.append(df_full[df_full['city']==ciudad]['longitude'].values[0])
+    resultado_lat_lon = pd.DataFrame({'ciudad':ciudad,'latitud': latitud, 'longitud': longitud})
     plt.figure(figsize=(12, 8))
     for categoria in categorias_filtradas['categorias'].unique():
         categoria_df = categorias_filtradas[categorias_filtradas['categorias'] == categoria]
@@ -150,7 +171,13 @@ def plot_predictions_for_city(df_categorias, df_ciudad, df_full_2, model, ciudad
     plt.grid(True)
     plt.xticks(rotation=45)
     plt.subplots_adjust(left=0.1, right=0.75, top=0.9, bottom=0.2)
-    img = io.BytesIO()
-    plt.savefig(img, format='png')
-    img.seek(0)
-    return img
+    plt.show()
+    map_center = [resultado_lat_lon['latitud'].mean(), resultado_lat_lon['longitud'].mean()]
+    mapa = folium.Map(location=map_center, zoom_start=12)
+    for _, row in resultado_lat_lon.iterrows():
+        folium.Marker(
+            location=[row['latitud'], row['longitud']],
+            popup=row['ciudad']
+        ).add_to(mapa)
+    mapa.save('mapa_ciudades.html')
+    return mapa

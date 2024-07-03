@@ -64,26 +64,7 @@ def entrada_seleccionada(modelo):
         ciudad_seleccionada = st.sidebar.selectbox("Seleccione una ciudad:", ciudades)
         return ciudad_seleccionada
 
-categoria_seleccionada=entrada_seleccionada(modelo_seleccionado)
+entrada=entrada_seleccionada(modelo_seleccionado)
 
-img = plot_predictions_for_categories(categoria_seleccionada,clf)
-st.image(img)
-
-
-
-
-'''#plot del primer modelo
-fig1=plt.figure(figsize=(12, 8))
-for ciudad in ciudades_filtradas['city'].unique():
-    ciudad_df = ciudades_filtradas[ciudades_filtradas['city'] == ciudad]
-    plt.plot(ciudad_df['fecha'].dt.month, ciudad_df['predicciones'], label=ciudad)
-plt.xlabel('Fecha')
-plt.ylabel('Predicciones')
-plt.title(f'Predicciones por ciudad de la categoría {categoria_seleccionada}')
-plt.legend(title='Ciudad', bbox_to_anchor=(1.05, 1), loc='upper left')
-plt.grid(True)
-plt.xticks(rotation=45)
-plt.subplots_adjust(left=0.1, right=0.75, top=0.9, bottom=0.2) 
-plt.show()
-
-st.pyplot(fig1)'''
+if modelo_seleccionado=="Predicción de crecimiento":
+    img = plot_predictions_for_categories(entrada,clf)

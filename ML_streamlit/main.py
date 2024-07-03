@@ -76,5 +76,5 @@ if modelo_seleccionado=="Predicción de crecimiento":
     folium_static(mapa)
 else:
     img, mapa = plot_predictions_for_city(entrada,clf,cantidad)
-    st.image(img, caption='Gráfico de Predicciones por Categoría', width=800)
+    st.image(img, caption='Gráfico de Predicciones por Categoría', width=1200)
     folium_static(mapa)

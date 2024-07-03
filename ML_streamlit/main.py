@@ -44,7 +44,7 @@ categoria_seleccionada=entrada_seleccionada(modelo_seleccionado)
 #Abrimos el modelo
 @st.cache(allow_output_mutation=True)
 def abrir_modelo():
-    with bz2.BZ2File (f"{bucket}/{file}") as f:
+    with bz2.BZ2File ("https://storage.googleapis.com/modelo_ml_111/Segementacion_modelo_bz2.pkl.bz2") as f:
         clf = joblib.load(f)
     return clf
 

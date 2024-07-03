@@ -9,17 +9,45 @@ import datetime
 import calendar
 import torch
 import gcsfs
+from io import BytesIO
+import requests
 
 
 
-
-bucket='modelo_ml_111'
-file='Segementacion_modelo_bz2.pkl.bz2'
 df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
 df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
 df_ciudades = pd.read_parquet(r'ML_streamlit/Datos/ciudad_numeros.parquet')
 df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/df_modelo.parquet')
 st.title("Proyecto Google-YELP")
+
+
+
+#Abrimos el modelo
+@st.cache(allow_output_mutation=True)
+def abrir_modelo():
+    url="https://storage.googleapis.com/modelo_ml_111/Segementacion_modelo_bz2.pkl.bz2"
+
+    response=requests.get(url)
+    # Asegúrate de que la solicitud fue exitosa
+    if response.status_code == 200:
+        # Descomprime el contenido bz2
+        decompressed_content = bz2.decompress(response.content)
+        
+        # Carga el modelo desde el contenido descomprimido
+        clf = joblib.load(BytesIO(decompressed_content))
+        return clf
+    else:
+        raise Exception(f"Error al acceder al archivo: {response.status_code}")
+
+# Ejemplo de uso
+bucket_name = 'modelo_ml_111'
+file_name = 'Segementacion_modelo_bz2.pkl.bz2'
+modelo = abrir_modelo(bucket_name, file_name)    
+'''    with bz2.BZ2File (f"{bucket}/{file}") as f:
+        clf = joblib.load(f)
+    return clf'''
+
+clf=abrir_modelo()
 
 modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Predicción de crecimiento", "Identificación de oportunidades"])
 
@@ -40,15 +68,6 @@ def entrada_seleccionada(modelo):
         return ciudad_seleccionada
 
 categoria_seleccionada=entrada_seleccionada(modelo_seleccionado)
-
-#Abrimos el modelo
-@st.cache(allow_output_mutation=True)
-def abrir_modelo():
-    with bz2.BZ2File ("https://storage.googleapis.com/modelo_ml_111/Segementacion_modelo_bz2.pkl.bz2") as f:
-        clf = joblib.load(f)
-    return clf
-
-clf=abrir_modelo()
 
 def predict_2(categoria):
     img = plot_predictions_for_categories(categoria, df_full, df_ciudades, df_full_2, df_categorias, clf)

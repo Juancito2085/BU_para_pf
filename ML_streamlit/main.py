@@ -16,10 +16,10 @@ from streamlit_folium import folium_static
 
 
 
-df_full = pd.read_parquet(r'Datos/ML_1.parquet')
-df_categorias = pd.read_parquet(r'Datos/categorias_numeros.parquet')
-df_ciudades = pd.read_parquet(r'Datos/ciudad_numeros.parquet')
-df_full_2 = pd.read_parquet(r'Datos/df_modelo.parquet')
+df_full = pd.read_parquet(r'ML_streatmlit/Datos/ML_1.parquet')
+df_categorias = pd.read_parquet(r'ML_streatmlitDatos/categorias_numeros.parquet')
+df_ciudades = pd.read_parquet(r'ML_streatmlitDatos/ciudad_numeros.parquet')
+df_full_2 = pd.read_parquet(r'ML_streatmlitDatos/df_modelo.parquet')
 #st.title("Proyecto Google-YELP")
 
 # Lee el contenido del archivo styles.css y aplica el estilo
@@ -33,7 +33,7 @@ def get_image_base64(path):
         return base64.b64encode(image_file.read()).decode()
 
 # Ruta a tu imagen local
-image_path = "/Users/luisalbertocerelli/Desktop/00-Todo/Data_Science/01-Full_Time/TPFINAL/Sprint3/ML_streamlit/Logo.jpeg"
+image_path = "ML_streamlit/Logo.jpeg"
 
 # Convertir la imagen a Base64
 image_base64 = get_image_base64(image_path)

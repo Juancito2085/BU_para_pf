@@ -9,10 +9,10 @@ from itertools import combinations
 import math
 import io
 
-df_full = pd.read_parquet(r'Datos/ML_1.parquet')
-df_categorias = pd.read_parquet(r'Datos/categorias_numeros.parquet')
-df_ciudades = pd.read_parquet(r'Datos/ciudad_numeros.parquet')
-df_full_2 = pd.read_parquet(r'Datos/df_modelo.parquet')
+df_full = pd.read_parquet(r'ML_streatmlitDatos/ML_1.parquet')
+df_categorias = pd.read_parquet(r'ML_streatmlitDatos/categorias_numeros.parquet')
+df_ciudades = pd.read_parquet(r'ML_streatmlitDatos/ciudad_numeros.parquet')
+df_full_2 = pd.read_parquet(r'ML_streatmlitDatos/df_modelo.parquet')
 
 def sentiment_score(review:str) -> int:
   

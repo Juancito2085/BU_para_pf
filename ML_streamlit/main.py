@@ -15,7 +15,7 @@ import requests
 from streamlit_folium import folium_static
 
 # Lee el contenido del archivo styles.css y aplica el estilo
-with open("styles.css") as f:
+with open("ML_streamlit/Datos/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Muestra la imagen usando una ruta relativa

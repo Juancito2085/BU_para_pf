@@ -79,7 +79,7 @@ def plot_predictions_for_categories(categorias1, model):
         ciudad_numero = ciudad_numero_funcion(ciudad, df_ciudades)
         lat, lon = lat_lon(ciudad_numero, df_full_2)
         categoria_numeros = categorias_funcion(categorias1, df_categorias)
-        for anio in [2019]:
+        for anio in [2022]:
             for mes in range(1, 13):
                 features = [ciudad_numero, lat, lon] + categoria_numeros + [anio, mes]
                 columns = ['city', 'latitude', 'longitude', 'category_1', 'category_2', 'category_3', 
@@ -140,7 +140,7 @@ def plot_predictions_for_city(ciudad, model, cantidad=1):
         ciudad_numero = ciudad_numero_funcion(ciudad, df_ciudades)
         lat, lon = lat_lon(ciudad_numero, df_full_2)
         categoria_numeros = categorias_funcion(categorias, df_categorias)
-        for anio in [2019]:
+        for anio in [2022]:
             for mes in range(1, 13):
                 features = [ciudad_numero, lat, lon] + categoria_numeros + [anio, mes]
                 columns = ['city', 'latitude', 'longitude', 'category_1', 'category_2', 'category_3', 

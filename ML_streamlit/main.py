@@ -94,11 +94,13 @@ col1, col2 = st.columns(2)
 
 if modelo_seleccionado=="Predicción de crecimiento":
     img, mapa = plot_predictions_for_categories(entrada,clf)
-    imagen=st.image(img, caption='Gráfico de Predicciones por Ciudad')
-    mapa_terminado=folium_static(mapa)
+    with col1:
+        imagen=st.image(img, caption='Gráfico de Predicciones por Ciudad', use_column_width=True)
+    with col2:
+        mapa_terminado=folium_static(mapa)
 else:
     img, mapa = plot_predictions_for_city(entrada,clf,cantidad)
     with col1:
-        imagen=st.image(img, caption='Gráfico de Predicciones por Categoría', width=1000)
+        imagen=st.image(img, caption='Gráfico de Predicciones por Categoría', use_column_width=True)
     with col2:
         mapa_terminado=folium_static(mapa)

@@ -8,7 +8,12 @@ body, html {
   box-sizing: border-box;
 }
 
-
+/* .st-emotion-cache-13ln4jf {
+  width: 100%;
+  padding: 6rem 1rem 10rem;
+  max-width: 46rem;
+  margin-left: 0px;
+} */
 
 .header {
   background-color: rgb(94,94,94);
@@ -60,42 +65,43 @@ p {
   font-size: 18px;
 }
 
-.image-container {
-  text-align: center; /* Centra la imagen horizontalmente */
-}
-
-.logo-image {
-  width: 35%; /* Ajusta el ancho de la imagen */
-  height: auto; /* Mantiene la proporción de la imagen */
-  border-radius: 10px; /* Bordes redondeados */
-}
+.imagen-especifica {
+  max-width: 35% !important;
+  height: auto;
+  display: block;
+  margin: auto;
+} 
 
 /* Estilo por defecto para la imagen, tamaño máximo inicial y centrado */
-img {
+img1 {
   max-width: 100% !important; /* Reduce el tamaño de la imagen */
   height: auto;
   display: block; /* Asegura que la imagen se trate como un bloque */
   margin: auto; /* Centra la imagen horizontalmente */
 }
 
-/* Estilos para pantallas de tabletas (ej. iPad) */
+.columnas-ajustables .stImage, .columnas-ajustables .folium-map {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Estilos para pantallas de tabletas (ej. iPad) 
 @media (min-width: 768px) and (max-width: 1024px) {
   img {
     max-width: 80%;
   }
-}
+}*/
 
-/* Estilos para pantallas grandes (ej. monitores de escritorio) */
+/* Estilos para pantallas grandes (ej. monitores de escritorio) 
 @media (min-width: 1025px) {
   img {
     max-width: 60%;
   }
-}
+}*/
 
-/* Estilos para pantallas pequeñas (ej. celulares) */
+/* Estilos para pantallas pequeñas (ej. celulares) 
 @media (max-width: 767px) {
   img {
     max-width: 100%;
   }
-}
-
+}*/

@@ -9,10 +9,10 @@ from itertools import combinations
 import math
 import io
 
-df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
-df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
-df_ciudades = pd.read_parquet(r'ML_streamlit/Datos/ciudad_numeros.parquet')
-df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/df_modelo.parquet')
+df_full = pd.read_parquet(r'Datos/ML_1.parquet')
+df_categorias = pd.read_parquet(r'Datos/categorias_numeros.parquet')
+df_ciudades = pd.read_parquet(r'Datos/ciudad_numeros.parquet')
+df_full_2 = pd.read_parquet(r'Datos/df_modelo.parquet')
 
 def sentiment_score(review:str) -> int:
   
@@ -79,7 +79,7 @@ def plot_predictions_for_categories(categorias1, model):
         ciudad_numero = ciudad_numero_funcion(ciudad, df_ciudades)
         lat, lon = lat_lon(ciudad_numero, df_full_2)
         categoria_numeros = categorias_funcion(categorias1, df_categorias)
-        for anio in [2024]:
+        for anio in [2019]:
             for mes in range(1, 13):
                 features = [ciudad_numero, lat, lon] + categoria_numeros + [anio, mes]
                 columns = ['city', 'latitude', 'longitude', 'category_1', 'category_2', 'category_3', 
@@ -114,9 +114,9 @@ def plot_predictions_for_categories(categorias1, model):
     plt.grid(True)
     plt.xticks(rotation=45)
     plt.subplots_adjust(left=0.1, right=0.75, top=0.9, bottom=0.2)
-    img = io.BytesIO()
-    plt.savefig(img, format='png')
-    img.seek(0)
+    img1 = io.BytesIO()
+    plt.savefig(img1, format='png')
+    img1.seek(0)
     plt.close()
     map_center = [resultado_lat_lon['latitud'].mean(), resultado_lat_lon['longitud'].mean()]
     mapa = folium.Map(location=map_center, zoom_start=12)
@@ -126,7 +126,7 @@ def plot_predictions_for_categories(categorias1, model):
             popup=row['ciudad']
         ).add_to(mapa)
     mapa.save('mapa_ciudades.html')
-    return img, mapa
+    return img1, mapa
 
 def plot_predictions_for_city(ciudad, model, cantidad=1):
     predicciones = []
@@ -140,7 +140,7 @@ def plot_predictions_for_city(ciudad, model, cantidad=1):
         ciudad_numero = ciudad_numero_funcion(ciudad, df_ciudades)
         lat, lon = lat_lon(ciudad_numero, df_full_2)
         categoria_numeros = categorias_funcion(categorias, df_categorias)
-        for anio in [2024]:
+        for anio in [2019]:
             for mes in range(1, 13):
                 features = [ciudad_numero, lat, lon] + categoria_numeros + [anio, mes]
                 columns = ['city', 'latitude', 'longitude', 'category_1', 'category_2', 'category_3', 
@@ -164,7 +164,7 @@ def plot_predictions_for_city(ciudad, model, cantidad=1):
     latitud.append(df_full[df_full['city']==ciudad]['latitude'].values[0])
     longitud.append(df_full[df_full['city']==ciudad]['longitude'].values[0])
     resultado_lat_lon = pd.DataFrame({'ciudad':ciudad,'latitud': latitud, 'longitud': longitud})
-    plt.figure(figsize=(20, 16))
+    plt.figure(figsize=(12, 8))
     for categoria in categorias_filtradas['categorias'].unique():
         categoria_df = categorias_filtradas[categorias_filtradas['categorias'] == categoria]
         plt.plot(categoria_df['fecha'], categoria_df['predicciones'], label=categoria)

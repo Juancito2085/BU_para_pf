@@ -13,34 +13,40 @@ import gcsfs
 from io import BytesIO
 import requests
 from streamlit_folium import folium_static
-import base64
 
-df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
-df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
-df_ciudades = pd.read_parquet(r'ML_streamlit/Datos/ciudad_numeros.parquet')
-df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/df_modelo.parquet')
+
+
+df_full = pd.read_parquet(r'Datos/ML_1.parquet')
+df_categorias = pd.read_parquet(r'Datos/categorias_numeros.parquet')
+df_ciudades = pd.read_parquet(r'Datos/ciudad_numeros.parquet')
+df_full_2 = pd.read_parquet(r'Datos/df_modelo.parquet')
+#st.title("Proyecto Google-YELP")
 
 # Lee el contenido del archivo styles.css y aplica el estilo
-with open("ML_streamlit/styles.css") as f:
+with open("styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# Función para convertir una imagen a base64
+import base64
+
 def get_image_base64(path):
     with open(path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode()
 
-# Ruta a tu imagen
-image_path = "ML_streamlit/Logo.jpeg"
+# Ruta a tu imagen local
+image_path = "/Users/luisalbertocerelli/Desktop/00-Todo/Data_Science/01-Full_Time/TPFINAL/Sprint3/ML_streamlit/Logo.jpeg"
 
-# Obtén la cadena base64 de la imagen
+# Convertir la imagen a Base64
 image_base64 = get_image_base64(image_path)
 
-# Incrusta la imagen usando la cadena base64 en HTML
+# Insertar la imagen usando HTML con codificación Base64
 st.markdown(f"""
-    <div class="image-container">
-        <img src="data:image/jpeg;base64,{image_base64}" alt="Logo" class="logo-image">
+    <div class="imagen-especifica">
+        <img src="data:image/jpeg;base64,{image_base64}" alt="Logo">
     </div>
 """, unsafe_allow_html=True)
+
+# Insertar un elemento HTML <hr>
+st.markdown("<hr>", unsafe_allow_html=True)
 
 st.markdown("""
     
@@ -49,19 +55,14 @@ st.markdown("""
     </div>
     <div class="content">
         <!-- Contenido principal de la presentación -->
-        <p>Aquí va el contenido principal de la presentación.</p>
-
+        <!-- <p>Aquí va el contenido principal de la presentación.</p> -->
+  
     </div>
 """, unsafe_allow_html=True)
 
 
-
-
-
-
-
 #Abrimos el modelo
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def abrir_modelo(bucket_name, file_name):
     url="https://storage.googleapis.com/modelo_ml_111/Segementacion_modelo_bz2.pkl.bz2"
 
@@ -85,8 +86,8 @@ file_name = 'Segementacion_modelo_bz2.pkl.bz2'
 clf = abrir_modelo(bucket_name, file_name) 
 
 
-
 modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Predicción de crecimiento", "Identificación de oportunidades"])
+
 
 
 def entrada_seleccionada(modelo):
@@ -100,20 +101,18 @@ def entrada_seleccionada(modelo):
         ciudades=df_ciudades['city'].unique()
         ciudades=sorted(ciudades)
         ciudad_seleccionada = st.sidebar.selectbox("Seleccione una ciudad:", ciudades)
-        cantidad=st.sidebar.slider("Seleccione la cantidad de categorías", 1, 5, 1)
+        cantidad=st.sidebar.slider("Seleccione la cantidad de categoris", 1, 5, 1)
         ciudad_seleccionada=ciudad_seleccionada
         return ciudad_seleccionada, cantidad
 
 entrada, cantidad=entrada_seleccionada(modelo_seleccionado)
 
-#Creamos las columnas
-
 
 if modelo_seleccionado=="Predicción de crecimiento":
     img, mapa = plot_predictions_for_categories(entrada,clf)
-    imagen=st.image(img, caption='Gráfico de Predicciones por Ciudad', use_column_width=True)
-    mapa_terminado=folium_static(mapa)
+    st.image(img, caption='Gráfico de Predicciones por Ciudad', use_column_width=True)
+    folium_static(mapa)
 else:
     img, mapa = plot_predictions_for_city(entrada,clf,cantidad)
-    imagen=st.image(img, caption='Gráfico de Predicciones por Categoría', width=800)
-    mapa_terminado=folium_static(mapa)
+    st.image(img, caption='Gráfico de Predicciones por Categoría' ,use_column_width=True)
+    folium_static(mapa)

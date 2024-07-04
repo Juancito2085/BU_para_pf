@@ -33,6 +33,7 @@ st.markdown("""
     <div class="content">
         <!-- Contenido principal de la presentación -->
         <p>Aquí va el contenido principal de la presentación.</p>
+
     </div>
 """, unsafe_allow_html=True)
 
@@ -68,7 +69,7 @@ clf = abrir_modelo(bucket_name, file_name)
 
 
 
-
+modelo_seleccionado=st.sidebar.selectbox("Seleccione el tipo de modelo: ", ["Predicción de crecimiento", "Identificación de oportunidades"])
 
 
 def entrada_seleccionada(modelo):

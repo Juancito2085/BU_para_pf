@@ -83,7 +83,7 @@ def entrada_seleccionada(modelo):
         ciudades=df_ciudades['city'].unique()
         ciudades=sorted(ciudades)
         ciudad_seleccionada = st.sidebar.selectbox("Seleccione una ciudad:", ciudades)
-        cantidad=st.sidebar.slider("Seleccione la cantidad de categoris", 1, 5, 1)
+        cantidad=st.sidebar.slider("Seleccione la cantidad de categorías", 1, 5, 1)
         ciudad_seleccionada=ciudad_seleccionada
         return ciudad_seleccionada, cantidad
 
@@ -98,5 +98,5 @@ if modelo_seleccionado=="Predicción de crecimiento":
     mapa_terminado=folium_static(mapa)
 else:
     img, mapa = plot_predictions_for_city(entrada,clf,cantidad)
-    imagen=st.image(img, caption='Gráfico de Predicciones por Categoría')
+    imagen=st.image(img, caption='Gráfico de Predicciones por Categoría', use_column_width=True)
     mapa_terminado=folium_static(mapa)

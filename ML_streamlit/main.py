@@ -100,5 +100,5 @@ if modelo_seleccionado=="Predicción de crecimiento":
         mapa_terminado=folium_static(mapa)
 else:
     img, mapa = plot_predictions_for_city(entrada,clf,cantidad)
-    imagen=st.image(img, caption='Gráfico de Predicciones por Categoría', use_column_width=True)
+    imagen=st.image(img, caption='Gráfico de Predicciones por Categoría')
     mapa_terminado=folium_static(mapa)

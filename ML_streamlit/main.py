@@ -23,7 +23,7 @@ df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/df_modelo.parquet')
 #st.title("Proyecto Google-YELP")
 
 # Lee el contenido del archivo styles.css y aplica el estilo
-with open("styles.css") as f:
+with open("ML_streamlit/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 import base64

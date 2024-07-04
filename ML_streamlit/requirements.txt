@@ -12,3 +12,4 @@ torch
 gcsfs
 folium
 streamlit_folium
+base64

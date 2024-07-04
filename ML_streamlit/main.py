@@ -13,6 +13,7 @@ import gcsfs
 from io import BytesIO
 import requests
 from streamlit_folium import folium_static
+import base64
 
 df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
 df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
@@ -23,12 +24,24 @@ df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/df_modelo.parquet')
 with open("ML_streamlit/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# Muestra la imagen usando una ruta relativa
-st.markdown("""
+# Función para convertir una imagen a base64
+def get_image_base64(path):
+    with open(path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode()
+
+# Ruta a tu imagen
+image_path = "ML_streamlit/Logo.jpeg"
+
+# Obtén la cadena base64 de la imagen
+image_base64 = get_image_base64(image_path)
+
+# Incrusta la imagen usando la cadena base64 en HTML
+st.markdown(f"""
     <div class="image-container">
-        <img src="ML_streamlit/Logo.jpeg" alt="Logo" class="logo-image">
+        <img src="data:image/jpeg;base64,{image_base64}" alt="Logo" class="logo-image">
     </div>
 """, unsafe_allow_html=True)
+
 st.markdown("""
     
     <div class="header">

@@ -116,3 +116,34 @@ else:
     img, mapa = plot_predictions_for_city(entrada,clf,cantidad)
     st.image(img, caption='Gráfico de Predicciones por Categoría' ,use_column_width=True)
     folium_static(mapa)
+
+# Insertar el pie de página (footer)
+st.markdown("""
+    <style>
+        .footer {
+            
+            font-size: 3px !important; /* Tamaño de fuente reducido */
+            color: #FAFAFA !important;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #0E1117;
+            text-align: center; /* Esto ya debería centrar el texto horizontalmente */
+            padding: 10px;
+        }
+        /* Para asegurar que el texto dentro de .footer también esté centrado verticalmente */
+        .footer p {
+            margin-left: 230px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center; /* Centra el contenido verticalmente */
+            justify-content: center; /* Centra el contenido horizontalmente */
+            height: 100%; /* Asegura que el <p> ocupe todo el alto de .footer */
+        }
+    </style>
+    <div class="footer">
+        <p>Derechos reservados © 2024. CogniCorp Solutions: Engineering: Juan C. Brunello(MLO), Luis Cerelli;<br>Analyst: Nathaly Castro, Franco D'Auro; Data Science: Lucas Leguizamon.</p>
+    </div>
+""", unsafe_allow_html=True)

@@ -60,6 +60,19 @@ p {
   font-size: 18px;
 }
 
+.image-container {
+  max-width: 100% !important; /* Reduce el tamaño de la imagen */
+  height: auto;
+  display: block; /* Asegura que la imagen se trate como un bloque */
+  margin: auto; /* Centra la imagen horizontalmente */
+}
+
+.logo-image {
+  width: 35%; /* Ajusta el ancho de la imagen */
+  height: auto; /* Mantiene la proporción de la imagen */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
 /* Estilo por defecto para la imagen, tamaño máximo inicial y centrado */
 img {
   max-width: 100% !important; /* Reduce el tamaño de la imagen */
@@ -89,9 +102,3 @@ img {
   }
 }
 
-.image-container {
-  max-width: 100% !important; /* Reduce el tamaño de la imagen */
-  height: auto;
-  display: block; /* Asegura que la imagen se trate como un bloque */
-  margin: auto; /* Centra la imagen horizontalmente */
-}

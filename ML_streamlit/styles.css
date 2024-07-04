@@ -88,3 +88,10 @@ img {
     max-width: 100%;
   }
 }
+
+.image-container {
+  max-width: 100% !important; /* Reduce el tamaño de la imagen */
+  height: auto;
+  display: block; /* Asegura que la imagen se trate como un bloque */
+  margin: auto; /* Centra la imagen horizontalmente */
+}

@@ -14,12 +14,30 @@ from io import BytesIO
 import requests
 from streamlit_folium import folium_static
 
+# Lee el contenido del archivo styles.css y aplica el estilo
+with open("styles.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Muestra la imagen usando una ruta relativa
+st.image("ML_streamlit/Datos/Logo.jpeg", use_column_width=True)
+st.markdown("""
+    
+    <div class="header">
+        <h1>Proyecto Google-YELP</h1>
+    </div>
+    <div class="content">
+        <!-- Contenido principal de la presentación -->
+        <p>Aquí va el contenido principal de la presentación.</p>
+  
+    </div>
+""", unsafe_allow_html=True)
 
 
 df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
 df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
 df_ciudades = pd.read_parquet(r'ML_streamlit/Datos/ciudad_numeros.parquet')
 df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/df_modelo.parquet')
+
 st.title("Proyecto Google-YELP")
 
 

@@ -19,6 +19,29 @@ df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet'
 df_ciudades = pd.read_parquet(r'ML_streamlit/Datos/ciudad_numeros.parquet')
 df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/df_modelo.parquet')
 
+# Lee el contenido del archivo styles.css y aplica el estilo
+with open("ML_streamlit/styles.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Muestra la imagen usando una ruta relativa
+st.image("ML_streamlit/Logo.jpeg", use_column_width=True)
+st.markdown("""
+    
+    <div class="header">
+        <h1>Proyecto Google-YELP</h1>
+    </div>
+    <div class="content">
+        <!-- Contenido principal de la presentación -->
+        <p>Aquí va el contenido principal de la presentación.</p>
+
+    </div>
+""", unsafe_allow_html=True)
+
+
+
+
+
+
 
 #Abrimos el modelo
 @st.cache(allow_output_mutation=True)

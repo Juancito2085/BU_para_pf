@@ -24,7 +24,11 @@ with open("ML_streamlit/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Muestra la imagen usando una ruta relativa
-st.image("ML_streamlit/Logo.jpeg", use_column_width=True)
+st.markdown("""
+    <div class="image-container">
+        <img src="ML_streamlit/Logo.jpeg" alt="Logo" class="logo-image">
+    </div>
+""", unsafe_allow_html=True)
 st.markdown("""
     
     <div class="header">

@@ -16,10 +16,10 @@ from streamlit_folium import folium_static
 
 
 
-df_full = pd.read_parquet(r'ML_streatmlit/Datos/ML_1.parquet')
-df_categorias = pd.read_parquet(r'ML_streatmlitDatos/categorias_numeros.parquet')
-df_ciudades = pd.read_parquet(r'ML_streatmlitDatos/ciudad_numeros.parquet')
-df_full_2 = pd.read_parquet(r'ML_streatmlitDatos/df_modelo.parquet')
+df_full = pd.read_parquet(r'ML_streamlit/Datos/ML_1.parquet')
+df_categorias = pd.read_parquet(r'ML_streamlit/Datos/categorias_numeros.parquet')
+df_ciudades = pd.read_parquet(r'ML_streamlit/Datos/ciudad_numeros.parquet')
+df_full_2 = pd.read_parquet(r'ML_streamlit/Datos/df_modelo.parquet')
 #st.title("Proyecto Google-YELP")
 
 # Lee el contenido del archivo styles.css y aplica el estilo
